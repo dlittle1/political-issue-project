@@ -21,12 +21,15 @@ const issueSchema = new Schema({
   },
   comments: [
     {
-      body: String,
-      user_id: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Comment',
     },
   ],
+  likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   createdAt: {
     type: Date,
     default: Date.now,
   },
 });
+
+module.exports = mongoose.model('Issue', issueSchema);

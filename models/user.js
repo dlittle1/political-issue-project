@@ -12,9 +12,6 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  likes: [
-    { issueId: { type: Schema.Types.ObjectId, ref: 'Issue', required: true } },
-  ],
   memberSince: {
     type: Date,
     default: Date.now,
