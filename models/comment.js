@@ -9,6 +9,7 @@ const commentSchema = new Schema({
   user: {
     type: mongoose.Types.ObjectId,
     required: true,
+    ref: 'User',
   },
   createdAt: {
     type: Date,
