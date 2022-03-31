@@ -99,6 +99,7 @@ postRouter.get('/:postId/comments', (req, res, next) => {
     .populate([
       {
         path: 'comments',
+        options: { sort: { createdAt: 1 } },
         populate: { path: 'user' },
       },
     ])
