@@ -1,0 +1,35 @@
+.login-signup-form {
+  width: 350px;
+  margin-top: 50px;
+}
+
+.login-signup-form p {
+  margin: 0;
+  color: rgb(97, 97, 97);
+}
+
+.login-signup-form a {
+  text-decoration: none;
+  color: rgb(9, 157, 255);
+}
+
+.login-signup-form input,
+button {
+  margin-top: 10px;
+}
+
+.login-signup-form input {
+  padding: 10px;
+  border-radius: 0.5rem;
+  border: 1.5px solid rgba(9, 157, 255, 0.363);
+  width: 95%;
+}
+
+.login-signup-form button {
+  padding: 10px 30px;
+  border: 0;
+  border-radius: 0.5rem;
+  background-color: rgb(9, 157, 255);
+  color: white;
+  font-size: 15px;
+}

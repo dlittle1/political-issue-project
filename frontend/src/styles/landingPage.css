@@ -1,0 +1,38 @@
+.landing-page-body {
+  height: 100vh;
+  display: flex;
+}
+
+.landing-page-image {
+  background-image: url('https://images.unsplash.com/photo-1511044676171-fa1c680222c4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80');
+  height: 100%;
+  width: 50%;
+
+  background-position: center;
+  background-size: cover;
+}
+
+.landing-page-content-container {
+  height: 100%;
+  width: 50%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.landing-page-text {
+  margin-top: 10%;
+}
+
+.landing-page-text p {
+  margin: 0;
+  font-size: 1.5rem;
+  color: rgb(97, 97, 97);
+}
+
+.landing-page-title {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 3.5rem;
+  color: rgb(9, 157, 255);
+}
