@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { UserContext } from './UserProvider';
 import axios from 'axios';
 
@@ -31,10 +31,15 @@ export default function RequestProvider(props) {
 
   // Get popular posts
   const getPopularPosts = () => {
-    userRequestAxios
+    return userRequestAxios
       .get(`/api/posts/popular`)
-      .then((response) => console.log(response))
-      .catch((err) => console.dir(err));
+      .then((response) => response.data);
+    // const promise = userRequestAxios
+    //   .get(`/api/posts/popular`)
+    //   .then((response) => {
+    //     return response.data;
+    //   })
+    //   .catch((err) => console.dir(err));
   };
 
   // Get posts by current user
@@ -96,7 +101,7 @@ export default function RequestProvider(props) {
   };
 
   return (
-    <RequestContext.Provider value={getPopularPosts}>
+    <RequestContext.Provider value={{ getPopularPosts }}>
       {props.children}
     </RequestContext.Provider>
   );
