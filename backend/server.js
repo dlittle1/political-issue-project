@@ -22,8 +22,9 @@ app.use(
   '/api',
   expressJwt({ secret: process.env.SECRET, algorithms: ['HS256'] })
 );
-app.use('/api/posts', require('./routes/postsRouter.js'));
+
 app.use('/api/comments', require('./routes/commentsRouter.js'));
+app.use('/api/posts', require('./routes/postsRouter.js'));
 
 app.use((err, req, res, next) => {
   return res.json({ errorMessage: err.message });
