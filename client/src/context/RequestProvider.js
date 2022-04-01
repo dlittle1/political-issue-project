@@ -29,6 +29,14 @@ export default function RequestProvider(props) {
       .catch((err) => console.dir(err));
   };
 
+  // Get popular posts
+  const getPopularPosts = () => {
+    userRequestAxios
+      .get(`/api/posts/popular`)
+      .then((response) => console.log(response))
+      .catch((err) => console.dir(err));
+  };
+
   // Get posts by current user
   const getCurrentUserPosts = () => {
     userRequestAxios

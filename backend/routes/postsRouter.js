@@ -5,13 +5,21 @@ const Comment = require('../models/comment');
 
 //Get all posts
 postRouter.get('/', (req, res, next) => {
-  Post.find((err, posts) => {
-    if (err) {
-      res.status(500);
-      return next(err);
-    }
-    return res.status(200).send(posts);
-  });
+  Post.find({})
+    .populate([
+      {
+        path: 'comments',
+        options: { sort: { createdAt: 1 } },
+        populate: { path: 'user' },
+      },
+    ])
+    .exec((err, populatedPost) => {
+      if (err) {
+        res.status(500);
+        return next(err);
+      }
+      return res.status(200).send(populatedPost);
+    });
 });
 
 //Get one post
@@ -38,6 +46,20 @@ postRouter.get('/user', (req, res, next) => {
     }
     return res.status(200).send(posts);
   });
+});
+
+//Get posts by popularity
+postRouter.get('/popular', (req, res, next) => {
+  Post.aggregate(
+    [{ $set: { size: { $size: '$likes' } } }, { $sort: { size: -1 } }],
+    (err, posts) => {
+      if (err) {
+        res.status(500);
+        return next(err);
+      }
+      return res.status(200).send(posts);
+    }
+  );
 });
 
 //Create post
