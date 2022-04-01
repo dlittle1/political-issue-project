@@ -18,7 +18,10 @@ function App() {
         element={token ? <Navigate replace to='/home' /> : <LandingPage />}
       />
       <Route element={<Navbar />}>
-        <Route path='/home' element={<Home />} />
+        <Route
+          path='/home'
+          element={!token ? <Navigate replace to='/' /> : <Home />}
+        />
       </Route>
     </Routes>
   );
