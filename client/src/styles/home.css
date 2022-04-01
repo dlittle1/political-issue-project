@@ -26,6 +26,21 @@
   border-right: 1px solid rgb(209, 209, 209);
 }
 
+.home-left-sidebar-user-options {
+  margin-top: 200px;
+  float: right;
+  list-style-type: none;
+  margin-right: 30px;
+}
+
+.home-left-sidebar-user-options .home-left-sidebar-post-option {
+  text-align: right;
+}
+
+.home-left-sidebar-user-options li {
+  margin-bottom: 10px;
+}
+
 .home-posts-container {
   flex: 3;
 }
