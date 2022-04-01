@@ -30,6 +30,7 @@ const Navbar = () => {
           </li>
         </ul>
       </nav>
+      <div className='nav-spacer'></div>
       <Outlet />
     </>
   );

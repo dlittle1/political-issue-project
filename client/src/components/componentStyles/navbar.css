@@ -1,10 +1,14 @@
 .navbar {
   background-color: rgb(49, 49, 49);
   height: 50px;
+  position: fixed;
+  top: 0;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-around;
-  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.153);
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.53);
+  z-index: 10;
 }
 
 .navbar li {
@@ -20,15 +24,18 @@
 }
 
 .nav-search {
-  flex: 2;
+  flex: 3;
   padding: 7px;
   border-radius: 0.5rem;
   border: 0;
+  background-color: #fff;
 }
 
 .nav-item-container {
   flex: 1;
   text-align: center;
+  margin: 0;
+  padding: 0;
 }
 
 .nav-item {
@@ -36,4 +43,12 @@
   margin: 0 20px;
   color: rgb(255, 255, 255);
   font-weight: bold;
+}
+
+.nav-item:nth-child(0) {
+  margin: 0;
+}
+
+.nav-spacer {
+  margin-bottom: 50px;
 }

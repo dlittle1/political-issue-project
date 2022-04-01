@@ -95,5 +95,9 @@ export default function RequestProvider(props) {
       .catch((err) => console.dir(err));
   };
 
-  return <RequestContext.Provider>{props.children}</RequestContext.Provider>;
+  return (
+    <RequestContext.Provider value={getPopularPosts}>
+      {props.children}
+    </RequestContext.Provider>
+  );
 }
