@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "concurrently": "^7.0.0"
+  },
+  "name": "RockTheVote",
+  "version": "1.0.0",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"cd backend && npm start\" \"cd client && npm start\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dlittle1/political-issue-project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dlittle1/political-issue-project/issues"
+  },
+  "homepage": "https://github.com/dlittle1/political-issue-project#readme",
+  "description": ""
+}
