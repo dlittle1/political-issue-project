@@ -35,9 +35,12 @@ const LoginSignupForm = () => {
           please sign up using the form below or <Link to='/'>login</Link>
         </p>
       ) : (
-        <p>
-          please login or <Link to='/signup'>sign up</Link> to continue
-        </p>
+        <>
+          <p>
+            please login or <Link to='/signup'>sign up</Link> to continue
+          </p>
+          <p style={{ margin: '5px' }}>forgot password?</p>
+        </>
       )}
       <input
         type='text'
@@ -48,13 +51,14 @@ const LoginSignupForm = () => {
       />
       <br />
       <input
-        type='text'
+        type='password'
         name='password'
         placeholder='password'
         value={inputs.password}
         onChange={handleChange}
       />
       <br />
+
       {onSignupPage ? <button>Sign Up</button> : <button>Login</button>}
     </form>
   );

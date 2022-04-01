@@ -26,6 +26,7 @@ const postSchema = new Schema({
     },
   ],
   likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  tags: [String],
   createdAt: {
     type: Date,
     default: Date.now,

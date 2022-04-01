@@ -8,21 +8,32 @@ const userAxios = axios.create();
 userAxios.interceptors.request.use((config) => {});
 
 export default function UserProvider(props) {
-  const initState = { user: '', token: '' };
+  const initState = {
+    user: JSON.parse(localStorage.getItem('user')) || {},
+    token: localStorage.getItem('token') || '',
+  };
 
   const [userState, setUserState] = useState(initState);
+
+  const storeUser = ({ user, token }) => {
+    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('token', token);
+    setUserState((prevUserState) => ({ ...prevUserState, user, token }));
+  };
 
   const signup = (credentials) => {
     axios
       .post('/auth/signup', credentials)
-      .then((response) => console.log(response))
+      .then((response) => {
+        storeUser(response.data);
+      })
       .catch((err) => console.dir(err.response.data.errorMessage));
   };
 
   const login = (credentials) => {
     axios
       .post('/auth/login', credentials)
-      .then((response) => console.log(response))
+      .then((response) => storeUser(response.data))
       .catch((err) => console.dir(err.response.data.errorMessage));
   };
 

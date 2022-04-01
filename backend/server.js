@@ -8,7 +8,12 @@ const expressJwt = require('express-jwt');
 app.use(express.json());
 app.use(morgan('dev'));
 
-mongoose.connect('mongodb://localhost:27017/rtv', () => {
+const database = process.env.DATABASE.replace(
+  '<PASSWORD>',
+  process.env.DATABASE_PASSWORD
+);
+
+mongoose.connect(database, () => {
   console.log('connected to DB');
 });
 

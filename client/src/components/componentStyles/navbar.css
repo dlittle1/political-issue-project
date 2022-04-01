@@ -1,0 +1,39 @@
+.navbar {
+  background-color: rgb(49, 49, 49);
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.153);
+}
+
+.navbar li {
+  list-style: none;
+}
+
+.nav-logo {
+  font-size: 24px;
+  font-family: 'Permanent Marker', cursive;
+  color: rgb(255, 255, 255);
+  flex: 1;
+  text-align: center;
+}
+
+.nav-search {
+  flex: 2;
+  padding: 7px;
+  border-radius: 0.5rem;
+  border: 0;
+}
+
+.nav-item-container {
+  flex: 1;
+  text-align: center;
+}
+
+.nav-item {
+  display: inline;
+  margin: 0 20px;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+}
