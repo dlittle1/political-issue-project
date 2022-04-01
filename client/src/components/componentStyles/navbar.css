@@ -1,5 +1,5 @@
 .navbar {
-  background-color: rgb(49, 49, 49);
+  background-color: rgb(255, 255, 255);
   height: 50px;
   position: fixed;
   top: 0;
@@ -7,7 +7,7 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.53);
+  box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.13);
   z-index: 10;
 }
 
@@ -18,16 +18,19 @@
 .nav-logo {
   font-size: 24px;
   font-family: 'Permanent Marker', cursive;
-  color: rgb(255, 255, 255);
+  color: rgb(102, 156, 201);
   flex: 1;
   text-align: center;
 }
 
 .nav-search {
-  flex: 3;
+  flex: 1;
   padding: 7px;
   border-radius: 0.5rem;
+  border-bottom: 2px solid rgba(102, 156, 201, 0.5);
   border: 0;
+  border-left: 0;
+  border-right: 0;
   background-color: #fff;
 }
 
@@ -41,7 +44,7 @@
 .nav-item {
   display: inline;
   margin: 0 20px;
-  color: rgb(255, 255, 255);
+  color: rgb(53, 53, 53);
   font-weight: bold;
 }
 

@@ -4,17 +4,28 @@
   height: 95vh;
 }
 
-.home-left-sidebar {
-  background-color: rgb(124, 193, 233);
+.home-heading {
+  padding-left: 20px;
+  margin-top: 20px;
+  padding-bottom: 60px;
+  border-bottom: 1px solid rgb(209, 209, 209);
+  color: rgb(66, 66, 66);
+}
+
+.home-left-sidebar,
+.home-right-sidebar {
+  background-color: rgb(255, 255, 255);
   flex: 1;
   height: 100%;
+  color: rgb(66, 66, 66);
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.home-left-sidebar {
+  border-right: 1px solid rgb(209, 209, 209);
 }
 
 .home-posts-container {
   flex: 3;
-}
-
-.home-right-sidebar {
-  flex: 1;
-  background-color: rgb(124, 193, 233);
 }
