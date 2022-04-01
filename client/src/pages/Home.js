@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState } from 'react';
-import axios from 'axios';
 import '../styles/home.css';
 import { RequestContext } from '../context/RequestProvider';
+import Post from '../components/Post';
 
 const Home = () => {
   const requestContext = useContext(RequestContext);
@@ -30,15 +30,11 @@ const Home = () => {
             </ul>
           </div>
           <div className='home-posts-container'>
+            <div className='home-heading'>
+              <h1>Top Posts</h1>
+            </div>
             {posts.map((post, index) => (
-              <div key={index}>
-                <h1>{post.title}</h1>
-                <h2>{post.description}</h2>
-                <p>{post.likes.length}</p>
-                {post.tags.map((tag, index) => (
-                  <li key={index + tag}>{tag}</li>
-                ))}
-              </div>
+              <Post {...post} index={index} key={post._id} />
             ))}
           </div>
           <div className='home-right-sidebar'>tags</div>
