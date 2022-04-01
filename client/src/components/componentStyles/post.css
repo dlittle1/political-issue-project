@@ -1,0 +1,28 @@
+.post-container {
+  padding: 30px 30px 0px 30px;
+  background-color: white;
+  color: rgb(110, 110, 110);
+  border-bottom: 1px solid rgb(209, 209, 209);
+}
+
+.post-title {
+  color: rgb(102, 156, 201);
+}
+
+.post-thumbs-up {
+  color: rgb(23, 91, 146);
+  margin-right: 5px;
+  margin-bottom: 100px;
+}
+
+.post-details {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.post-details li {
+  list-style-type: none;
+  display: inline;
+  margin: 20px;
+}
