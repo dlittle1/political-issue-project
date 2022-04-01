@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import Posts from '../components/Posts';
 import { RequestContext } from '../context/RequestProvider';
 const Popular = (props) => {
