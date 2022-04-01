@@ -20,7 +20,8 @@ exports.getAllPosts = (req, res, next) => {
 };
 
 exports.getOnePost = (req, res, next) => {
-  Post.findOne({ _id: req.params.postId })
+  let ObjectId = require('mongoose').Types.ObjectId;
+  Post.findOne({ _id: new ObjectId(req.params.postId) })
     .populate([
       {
         path: 'comments',
@@ -56,6 +57,14 @@ exports.getPostsByPopularity = (req, res, next) => {
   Post.aggregate([
     { $set: { size: { $size: '$likes' } } },
     { $sort: { size: -1 } },
+    {
+      $lookup: {
+        from: 'users',
+        localField: 'createdBy',
+        foreignField: '_id',
+        as: 'postAuthor',
+      },
+    },
   ]).exec((err, popularPosts) => {
     if (err) {
       res.status(500);
