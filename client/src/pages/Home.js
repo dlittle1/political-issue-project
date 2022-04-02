@@ -1,20 +1,14 @@
 import { Outlet } from 'react-router-dom';
 import '../styles/home.css';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMemo } from '@fortawesome/pro-solid-svg-icons';
+import LeftSidebar from '../components/LeftSidebar';
 const Home = () => {
   return (
     <div className='home-container'>
       <>
-        <div className='home-left-sidebar'>
-          <ul className='home-left-sidebar-user-options'>
-            <li className='home-left-sidebar-post-option'>Top Posts</li>
-            <li className='home-left-sidebar-post-option'>New Posts</li>
-            <li className='home-left-sidebar-post-option'>Filter Posts</li>
-            <hr />
-            <li>Create New Post</li>
-            <li>View Your Posts</li>
-            <li></li>
-          </ul>
+        <div className='home-left-sidebar '>
+          <LeftSidebar />
         </div>
         <div className='home-posts-container'>
           <Outlet />
