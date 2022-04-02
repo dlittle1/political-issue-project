@@ -11,6 +11,8 @@ const {
   updatePost,
   deletePost,
   likePost,
+  deleteLike,
+  getLikePost,
 } = postController;
 
 postRouter.route('/').get(getAllPosts).post(createPost);
@@ -19,5 +21,7 @@ postRouter.get('/new', getNewPosts);
 postRouter.get('/user', getCurrentUserPosts);
 postRouter.route('/:postId').get(getOnePost).put(updatePost).delete(deletePost);
 postRouter.put('/:postId/like', likePost);
+postRouter.get('/:postId/like', getLikePost);
+postRouter.put('/:postId/like/delete', deleteLike);
 
 module.exports = postRouter;
