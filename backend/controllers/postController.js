@@ -74,6 +74,26 @@ exports.getPostsByPopularity = (req, res, next) => {
   });
 };
 
+exports.getNewPosts = (req, res, next) => {
+  Post.aggregate([
+    { $sort: { createdAt: -1 } },
+    {
+      $lookup: {
+        from: 'users',
+        localField: 'createdBy',
+        foreignField: '_id',
+        as: 'postAuthor',
+      },
+    },
+  ]).exec((err, newPosts) => {
+    if (err) {
+      res.status(500);
+      return next(err);
+    }
+    return res.status(200).send(newPosts);
+  });
+};
+
 exports.createPost = (req, res, next) => {
   req.body.createdBy = req.user._id;
   const newPost = new Post(req.body);

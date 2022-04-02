@@ -6,6 +6,7 @@ const {
   getOnePost,
   getCurrentUserPosts,
   getPostsByPopularity,
+  getNewPosts,
   createPost,
   updatePost,
   deletePost,
@@ -14,6 +15,7 @@ const {
 
 postRouter.route('/').get(getAllPosts).post(createPost);
 postRouter.get('/popular', getPostsByPopularity);
+postRouter.get('/new', getNewPosts);
 postRouter.get('/user', getCurrentUserPosts);
 postRouter.route('/:postId').get(getOnePost).put(updatePost).delete(deletePost);
 postRouter.put('/:postId/like', likePost);
