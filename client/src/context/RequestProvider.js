@@ -36,6 +36,12 @@ export default function RequestProvider(props) {
       .then((response) => response.data);
   };
 
+  // Get new posts
+  const getNewPosts = () => {
+    return userRequestAxios
+      .get(`/api/posts/new`)
+      .then((response) => response.data);
+  };
   // Get posts by current user
   const getCurrentUserPosts = () => {
     userRequestAxios
@@ -95,7 +101,7 @@ export default function RequestProvider(props) {
   };
 
   return (
-    <RequestContext.Provider value={{ getPopularPosts }}>
+    <RequestContext.Provider value={{ getPopularPosts, getNewPosts }}>
       {props.children}
     </RequestContext.Provider>
   );
