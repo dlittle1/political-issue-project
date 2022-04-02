@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './componentStyles/post.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faThumbsUp } from '@fortawesome/pro-solid-svg-icons';
 import TimeAgo from 'javascript-time-ago';
-import en from 'javascript-time-ago/locale/en.json';
+import { RequestContext } from '../context/RequestProvider';
+import LikeButton from './LikeButton';
 
 const Post = (props) => {
+  const requestContext = useContext(RequestContext);
   const {
     index,
     title,
@@ -15,7 +15,11 @@ const Post = (props) => {
     postAuthor,
     createdAt,
     createdBy,
+    _id,
   } = props;
+
+  const { likePost, getLikePost, deleteLike } = requestContext;
+
   const timeAgo = new TimeAgo('en-US');
   return (
     <div key={index} className='post-container'>
@@ -23,10 +27,13 @@ const Post = (props) => {
       <h5>{description}</h5>
       <div className='post-details'>
         <p>
-          <span className='post-thumbs-up'>
-            <FontAwesomeIcon icon={faThumbsUp} size='sm' />
-          </span>
-          {likes.length}
+          <LikeButton
+            likePost={likePost}
+            getLikePost={getLikePost}
+            deleteLike={deleteLike}
+            likes={likes}
+            _id={_id}
+          />
         </p>
         <ul>
           {tags.map((tag, index) => (
