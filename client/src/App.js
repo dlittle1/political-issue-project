@@ -14,11 +14,15 @@ function App() {
     <Routes>
       <Route
         path='/'
-        element={token ? <Navigate replace to='/home' /> : <LandingPage />}
+        element={
+          token ? <Navigate replace to='/home/popular' /> : <LandingPage />
+        }
       />
       <Route
         path='/signup'
-        element={token ? <Navigate replace to='/home' /> : <LandingPage />}
+        element={
+          token ? <Navigate replace to='/home/popular' /> : <LandingPage />
+        }
       />
       <Route element={<Navbar />}>
         <Route
