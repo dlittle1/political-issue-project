@@ -6,7 +6,7 @@ const Posts = (props) => {
 
   useEffect(() => {
     props.apiMethod().then((response) => setPosts(response));
-  }, []);
+  }, [props]);
 
   useEffect(() => {
     if (posts) {
