@@ -8,9 +8,7 @@ import en from 'javascript-time-ago/locale/en.json';
 const Post = (props) => {
   const { index, title, description, likes, tags, postAuthor, createdAt } =
     props;
-  TimeAgo.addDefaultLocale(en);
   const timeAgo = new TimeAgo('en-US');
-  console.log(props);
   return (
     <div key={index} className='post-container'>
       <h2 className='post-title'>{title}</h2>
