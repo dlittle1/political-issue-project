@@ -12,7 +12,7 @@ const LeftSidebar = () => {
           <NavLink to='/home/new'>
             <li>Newest</li>
           </NavLink>
-          <NavLink to='/home/liked'>
+          <NavLink to='/home/likes'>
             <li>My Likes</li>
           </NavLink>
           <NavLink to='/home/user/posts'>

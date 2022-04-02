@@ -7,6 +7,7 @@ import Popular from './pages/PopularPosts';
 import { UserContext } from './context/UserProvider';
 import NewPosts from './pages/NewPosts';
 import UserPosts from './pages/UserPosts';
+import UsersLikedPosts from './pages/UsersLikedPosts';
 
 function App() {
   const { token } = useContext(UserContext);
@@ -32,6 +33,7 @@ function App() {
           <Route path='/home/popular' element={<Popular />} />
           <Route path='/home/new' element={<NewPosts />} />
           <Route path='/home/user/posts' element={<UserPosts />} />
+          <Route path='/home/likes' element={<UsersLikedPosts />} />
         </Route>
       </Route>
     </Routes>

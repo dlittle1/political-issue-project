@@ -96,6 +96,19 @@ exports.getNewPosts = (req, res, next) => {
   });
 };
 
+exports.getCurrentUserLikedPosts = (req, res, next) => {
+  const userId = req.user._id;
+  Post.find({ likes: { $in: req.user._id } })
+    .populate([{ path: 'createdBy' }])
+    .exec((err, newPosts) => {
+      if (err) {
+        res.status(500);
+        return next(err);
+      }
+      return res.status(200).send(newPosts);
+    });
+};
+
 exports.createPost = (req, res, next) => {
   req.body.createdBy = req.user._id;
   const newPost = new Post(req.body);

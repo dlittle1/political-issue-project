@@ -49,6 +49,13 @@ export default function RequestProvider(props) {
       .then((response) => response.data);
   };
 
+  //Get posts user has liked
+  const getUsersLikedPosts = () => {
+    return userRequestAxios
+      .get('/api/posts/user/likes')
+      .then((response) => response.data);
+  };
+
   // Create a new post
   const createPost = (post) => {
     userRequestAxios
@@ -91,7 +98,7 @@ export default function RequestProvider(props) {
       .catch((err) => console.dir(err));
   };
 
-  // Like ost
+  // Like post
   const likePost = (postId) => {
     return userRequestAxios
       .put(`/api/posts/${postId}/like`)
@@ -117,6 +124,7 @@ export default function RequestProvider(props) {
         getPopularPosts,
         getNewPosts,
         getCurrentUserPosts,
+        getUsersLikedPosts,
         likePost,
         deleteLike,
         getLikePost,

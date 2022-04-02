@@ -13,12 +13,14 @@ const {
   likePost,
   deleteLike,
   getLikePost,
+  getCurrentUserLikedPosts,
 } = postController;
 
 postRouter.route('/').get(getAllPosts).post(createPost);
 postRouter.get('/popular', getPostsByPopularity);
 postRouter.get('/new', getNewPosts);
 postRouter.get('/user', getCurrentUserPosts);
+postRouter.get('/user/likes', getCurrentUserLikedPosts);
 postRouter.route('/:postId').get(getOnePost).put(updatePost).delete(deletePost);
 postRouter.put('/:postId/like', likePost);
 postRouter.get('/:postId/like', getLikePost);
