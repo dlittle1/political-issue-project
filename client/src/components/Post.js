@@ -6,8 +6,16 @@ import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en.json';
 
 const Post = (props) => {
-  const { index, title, description, likes, tags, postAuthor, createdAt } =
-    props;
+  const {
+    index,
+    title,
+    description,
+    likes,
+    tags,
+    postAuthor,
+    createdAt,
+    createdBy,
+  } = props;
   const timeAgo = new TimeAgo('en-US');
   return (
     <div key={index} className='post-container'>
@@ -28,7 +36,7 @@ const Post = (props) => {
           ))}
         </ul>
         <p>
-          Posted by: {postAuthor[0].username}{' '}
+          Posted by: {createdBy.username || postAuthor[0].username}{' '}
           {timeAgo.format(new Date(createdAt))}
         </p>
       </div>

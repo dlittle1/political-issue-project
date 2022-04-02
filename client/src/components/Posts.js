@@ -5,9 +5,13 @@ const Posts = (props) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    props.apiMethod().then((response) => setPosts(response));
+    props
+      .apiMethod()
+      .then((response) => setPosts(response))
+      .catch((error) => console.dir(error));
   }, [props]);
 
+  console.log(posts);
   useEffect(() => {
     if (posts) {
       setLoading(false);

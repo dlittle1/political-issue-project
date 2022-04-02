@@ -40,17 +40,19 @@ exports.getOnePost = (req, res, next) => {
 
 exports.getCurrentUserPosts = (req, res, next) => {
   const user = req.user._id;
-  Post.find({ createdBy: user }, (err, posts) => {
-    if (err) {
-      res.status(500);
-      return next(err);
-    }
-    if (!posts) {
-      res.status(404);
-      return next(new Error('No posts found by this user'));
-    }
-    return res.status(200).send(posts);
-  });
+  Post.find({ createdBy: user })
+    .populate([{ path: 'createdBy' }])
+    .exec((err, userPosts) => {
+      if (err) {
+        res.status(500);
+        return next(err);
+      }
+      if (!userPosts) {
+        res.status(404);
+        return next(new Error('No posts found by this user'));
+      }
+      return res.status(200).send(userPosts);
+    });
 };
 
 exports.getPostsByPopularity = (req, res, next) => {
