@@ -155,9 +155,37 @@ exports.likePost = (req, res, next) => {
         return next(err);
       }
       if (updateResult.modifiedCount === 0) {
-        return res.status(500).send('Cannot like a post more than once');
+        return res.status(400).send('Cannot like a post more than once');
       }
       return res.status(200).send(updateResult);
+    }
+  );
+};
+
+exports.deleteLike = (req, res, next) => {
+  Post.updateOne(
+    { _id: req.params.postId },
+    { $pull: { likes: req.user._id } },
+    { new: true },
+    (err, updateResult) => {
+      if (err) {
+        res.status(500);
+        return next(err);
+      }
+      return res.status(200).send(updateResult);
+    }
+  );
+};
+
+exports.getLikePost = (req, res, next) => {
+  Post.findOne(
+    { $and: [{ _id: req.params.postId }, { likes: { $in: req.user._id } }] },
+    (err, post) => {
+      if (err) {
+        res.status(500);
+        return next(err);
+      }
+      return res.status(200).send(post);
     }
   );
 };
