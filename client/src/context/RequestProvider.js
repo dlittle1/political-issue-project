@@ -91,17 +91,36 @@ export default function RequestProvider(props) {
       .catch((err) => console.dir(err));
   };
 
-  // Like post
+  // Like ost
   const likePost = (postId) => {
-    userRequestAxios
-      .post(`/api/posts/${postId}/like`)
-      .then((response) => console.log(response))
-      .catch((err) => console.dir(err));
+    return userRequestAxios
+      .put(`/api/posts/${postId}/like`)
+      .then((response) => response.data);
+  };
+
+  // Delete Like
+  const deleteLike = (postId) => {
+    return userRequestAxios
+      .put(`/api/posts/${postId}/like/delete`)
+      .then((response) => response.data);
+  };
+
+  const getLikePost = (postId) => {
+    return userRequestAxios
+      .get(`/api/posts/${postId}/like`)
+      .then((response) => response.data);
   };
 
   return (
     <RequestContext.Provider
-      value={{ getPopularPosts, getNewPosts, getCurrentUserPosts }}
+      value={{
+        getPopularPosts,
+        getNewPosts,
+        getCurrentUserPosts,
+        likePost,
+        deleteLike,
+        getLikePost,
+      }}
     >
       {props.children}
     </RequestContext.Provider>
