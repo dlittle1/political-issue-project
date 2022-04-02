@@ -11,7 +11,6 @@ const Posts = (props) => {
       .catch((error) => console.dir(error));
   }, [props]);
 
-  console.log(posts);
   useEffect(() => {
     if (posts) {
       setLoading(false);
