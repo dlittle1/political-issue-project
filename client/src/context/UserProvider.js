@@ -15,6 +15,7 @@ export default function UserProvider(props) {
 
   const [userState, setUserState] = useState(initState);
 
+  console.log(userState);
   const storeUser = ({ user, token }) => {
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('token', token);

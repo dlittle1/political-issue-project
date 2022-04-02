@@ -6,11 +6,16 @@ const UserPosts = () => {
   const requestContext = useContext(RequestContext);
   const userContext = useContext(UserContext);
   const { getCurrentUserPosts } = requestContext;
-  const { username } = userContext;
+  const { user } = userContext;
+
+  console.log(user);
 
   return (
     <>
-      <Posts title={`${username}'s Posts`} apiMethod={getCurrentUserPosts} />
+      <Posts
+        title={`${user.username}'s Posts`}
+        apiMethod={getCurrentUserPosts}
+      />
     </>
   );
 };
