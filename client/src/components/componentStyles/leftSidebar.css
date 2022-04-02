@@ -1,0 +1,28 @@
+.left-sidebar-items {
+  margin-top: 103px;
+  text-align: right;
+}
+
+.left-sidebar-items a {
+  color: rgb(102, 156, 201);
+  text-decoration: none;
+}
+
+.left-sidebar-items li {
+  list-style-type: none;
+  padding: 10px;
+  font-weight: bold;
+  border-bottom: 1px solid rgb(194, 194, 194);
+}
+
+.left-sidebar-items li:hover {
+  background-color: rgba(102, 156, 201, 0.5);
+  color: white;
+}
+
+.active li {
+  background-color: rgb(102, 156, 201);
+  text-align: left;
+  color: #fff;
+  border: 0;
+}
