@@ -8,6 +8,7 @@ import { UserContext } from './context/UserProvider';
 import NewPosts from './pages/NewPosts';
 import UserPosts from './pages/UserPosts';
 import UsersLikedPosts from './pages/UsersLikedPosts';
+import PostPage from './pages/PostPage';
 
 function App() {
   const { token } = useContext(UserContext);
@@ -34,6 +35,7 @@ function App() {
           <Route path='/home/new' element={<NewPosts />} />
           <Route path='/home/user/posts' element={<UserPosts />} />
           <Route path='/home/likes' element={<UsersLikedPosts />} />
+          <Route path='/home/posts/:postId' element={<PostPage />} />
         </Route>
       </Route>
     </Routes>

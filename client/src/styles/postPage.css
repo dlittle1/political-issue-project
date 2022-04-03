@@ -1,0 +1,49 @@
+.post {
+  margin: 20px;
+}
+
+.post-page-created-by {
+  float: right;
+  text-align: center;
+}
+
+.post-page-written-by {
+  margin-bottom: -10px;
+}
+
+.post-page-user-container {
+  margin-top: 0px;
+  display: flex;
+  align-items: center;
+}
+
+.post-page-user-container svg {
+  width: 100px;
+  height: 75px;
+  margin-right: -10px;
+}
+
+.post-page-comment-link {
+  color: #5873fd;
+}
+
+.post-page-comment-link:hover {
+  cursor: pointer;
+}
+
+.post-page-comment-input {
+  padding: 10px;
+  margin-top: 20px;
+  border: 2px solid #5873fd;
+  border-radius: 0.5rem;
+  width: 100%;
+}
+
+.post-page-comment-button {
+  background-color: #5873fd;
+  border: 0;
+  padding: 10px 20px;
+  border-radius: 0.5rem;
+  color: #fff;
+  font-weight: bold;
+}
