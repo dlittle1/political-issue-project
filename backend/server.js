@@ -25,7 +25,7 @@ app.use(
 
 app.use('/api/comments', require('./routes/commentsRouter.js'));
 app.use('/api/posts', require('./routes/postsRouter.js'));
-
+app.use('/api/tags', require('./routes/tagsRouter.js'));
 app.use((err, req, res, next) => {
   return res.json({ errorMessage: err.message });
 });
