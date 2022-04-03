@@ -125,7 +125,7 @@ exports.likePost = (req, res, next) => {
 exports.deleteLike = (req, res, next) => {
   Post.updateOne(
     { _id: req.params.postId },
-    { $pull: { likes: req.user._id } },
+    { $pull: { likes: req.user._id }, $inc: { upvotes: -1 } },
     { new: true },
     (err, updateResult) => {
       if (err) {
