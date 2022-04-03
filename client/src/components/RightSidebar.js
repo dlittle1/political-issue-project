@@ -8,7 +8,7 @@ const RightSidebar = () => {
 
   useEffect(() => {
     context.getTags().then((response) => setTags(response[0].tags));
-  });
+  }, []);
 
   return (
     <div className='tags'>
