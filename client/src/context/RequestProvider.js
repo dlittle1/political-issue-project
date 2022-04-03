@@ -23,10 +23,9 @@ export default function RequestProvider(props) {
 
   // Get One Post
   const getOnePost = (postId) => {
-    userRequestAxios
+    return userRequestAxios
       .get(`/api/posts/${postId}`)
-      .then((response) => console.log(response))
-      .catch((err) => console.dir(err));
+      .then((response) => response.data);
   };
 
   // Get popular posts
@@ -96,10 +95,9 @@ export default function RequestProvider(props) {
 
   // Create comment for post
   const createCommentOnPost = (postId, comment) => {
-    userRequestAxios
+    return userRequestAxios
       .post(`/api/posts/${postId}/comments`, comment)
-      .then((response) => console.log(response))
-      .catch((err) => console.dir(err));
+      .then((response) => response.data);
   };
 
   // Like post
@@ -112,7 +110,7 @@ export default function RequestProvider(props) {
   // Delete Like
   const deleteLike = (postId) => {
     return userRequestAxios
-      .put(`/api/posts/${postId}/like`)
+      .delete(`/api/posts/${postId}/like`)
       .then((response) => response.data);
   };
 
@@ -137,6 +135,8 @@ export default function RequestProvider(props) {
         deleteLike,
         getLikePost,
         getTags,
+        getOnePost,
+        createCommentOnPost,
       }}
     >
       {props.children}
