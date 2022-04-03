@@ -10,7 +10,7 @@ const Post = (props) => {
     index,
     title,
     description,
-    likes,
+    upvotes,
     tags,
     postAuthor,
     createdAt,
@@ -31,7 +31,7 @@ const Post = (props) => {
             likePost={likePost}
             getLikePost={getLikePost}
             deleteLike={deleteLike}
-            likes={likes}
+            likes={upvotes}
             _id={_id}
           />
         </p>

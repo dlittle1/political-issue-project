@@ -5,7 +5,7 @@ import { faThumbsUp } from '@fortawesome/pro-solid-svg-icons';
 const LikeButton = (props) => {
   const { likes, getLikePost, likePost, deleteLike, _id } = props;
   const [hasLikedPost, setHasLikedPost] = useState(false);
-  const [numLikes, setNumLikes] = useState(likes.length);
+  const [numLikes, setNumLikes] = useState(likes);
 
   useEffect(() => {
     getLikePost(_id).then((response) => {
