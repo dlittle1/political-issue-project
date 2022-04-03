@@ -1,10 +1,16 @@
+.left-sidebar {
+  width: 80%;
+  float: right;
+  margin-top: 80px;
+}
+
 .left-sidebar-items {
-  margin-top: 103px;
+  right: 0;
   text-align: right;
 }
 
 .left-sidebar-items a {
-  color: rgb(102, 156, 201);
+  color: white;
   text-decoration: none;
 }
 
@@ -16,13 +22,20 @@
 }
 
 .left-sidebar-items li:hover {
-  background-color: rgba(102, 156, 201, 0.5);
+  background-color: rgba(255, 255, 255, 0.25);
   color: white;
 }
 
 .active li {
-  background-color: rgb(102, 156, 201);
+  background-color: white;
   text-align: left;
-  color: #fff;
+  color: #5873fd;
+  border: 0;
+}
+
+.active li:hover {
+  background-color: white;
+  text-align: left;
+  color: #5873fd;
   border: 0;
 }

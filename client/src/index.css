@@ -1,11 +1,18 @@
+html {
+  min-height: 100%;
+}
+
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  position: relative;
+  height: auto;
   font-family: 'Roboto', BlinkMacSystemFont, 'Segoe UI', 'Oxygen', 'Ubuntu',
     'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100% !important;
 }
 
 h1,

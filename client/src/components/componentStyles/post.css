@@ -6,7 +6,7 @@
 }
 
 .post-title {
-  color: rgb(102, 156, 201);
+  color: #2c2c2c;
 }
 
 .post-thumbs-up {
@@ -23,5 +23,10 @@
 .post-details li {
   list-style-type: none;
   display: inline;
-  margin: 20px;
+  margin: 10px;
+  background-color: #5873fd;
+  padding: 5px;
+  color: #fff;
+  border-radius: 3px;
+  font-weight: bold;
 }
