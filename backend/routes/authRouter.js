@@ -2,6 +2,8 @@ const express = require('express');
 const authRouter = express.Router();
 const User = require('../models/user.js');
 const jwt = require('jsonwebtoken');
+const bigheadsGenerator = require('../utils/bigheads');
+const { getRandomOptions } = bigheadsGenerator;
 
 // Signup
 authRouter.post('/signup', (req, res, next) => {
@@ -14,6 +16,8 @@ authRouter.post('/signup', (req, res, next) => {
       res.status(403);
       return next(new Error('User already exists with that email address'));
     }
+    req.body.avatar = { ...getRandomOptions() };
+    console.log(req.body);
     const newUser = new User(req.body);
     newUser.save((err, savedUser) => {
       if (err) {
@@ -45,5 +49,21 @@ authRouter.post('/login', (req, res, next) => {
     return res.status(200).send({ token, user });
   });
 });
+
+// authRouter.put('/update', (req, res, next) => {
+//   req.body.avatar = { ...getRandomOptions() };
+//   User.updateOne(
+//     { email: req.body.email.toLowerCase() },
+//     req.body,
+//     { new: true },
+//     (err, updatedUser) => {
+//       if (err) {
+//         res.status(500);
+//         return next(err);
+//       }
+//       return res.status(200).send(updatedUser);
+//     }
+//   );
+// });
 
 module.exports = authRouter;
