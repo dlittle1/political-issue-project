@@ -32,27 +32,31 @@ export default function RequestProvider(props) {
   // Get popular posts
   const getPopularPosts = () => {
     return userRequestAxios
-      .get(`/api/posts/popular`)
+      .get(`/api/posts?sort=-upvotes`)
       .then((response) => response.data);
   };
 
   // Get new posts
   const getNewPosts = () => {
     return userRequestAxios
-      .get(`/api/posts/new`)
+      .get(`/api/posts?sort=-createdAt`)
       .then((response) => response.data);
   };
   // Get posts by current user
   const getCurrentUserPosts = () => {
+    const currentUser = JSON.parse(localStorage.getItem('user'));
+    const { _id } = currentUser;
     return userRequestAxios
-      .get('/api/posts/user')
+      .get(`/api/posts?createdBy=${_id}`)
       .then((response) => response.data);
   };
 
   //Get posts user has liked
   const getUsersLikedPosts = () => {
+    const currentUser = JSON.parse(localStorage.getItem('user'));
+    const { _id } = currentUser;
     return userRequestAxios
-      .get('/api/posts/user/likes')
+      .get(`/api/posts?likes=${_id}`)
       .then((response) => response.data);
   };
 
@@ -108,7 +112,7 @@ export default function RequestProvider(props) {
   // Delete Like
   const deleteLike = (postId) => {
     return userRequestAxios
-      .put(`/api/posts/${postId}/like/delete`)
+      .put(`/api/posts/${postId}/like`)
       .then((response) => response.data);
   };
 
