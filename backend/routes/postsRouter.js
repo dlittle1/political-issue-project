@@ -17,13 +17,11 @@ const {
 } = postController;
 
 postRouter.route('/').get(getAllPosts).post(createPost);
-postRouter.get('/popular', getPostsByPopularity);
-postRouter.get('/new', getNewPosts);
-postRouter.get('/user', getCurrentUserPosts);
-postRouter.get('/user/likes', getCurrentUserLikedPosts);
 postRouter.route('/:postId').get(getOnePost).put(updatePost).delete(deletePost);
-postRouter.put('/:postId/like', likePost);
-postRouter.get('/:postId/like', getLikePost);
-postRouter.put('/:postId/like/delete', deleteLike);
+postRouter
+  .route('/:postId/like')
+  .put(likePost)
+  .get(getLikePost)
+  .delete(deleteLike);
 
 module.exports = postRouter;
