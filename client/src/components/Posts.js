@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Post from './Post';
+import './componentStyles/posts.css';
 const Posts = (props) => {
   const [posts, setPosts] = useState();
   const [loading, setLoading] = useState(true);
@@ -21,7 +22,7 @@ const Posts = (props) => {
     <div>
       {!loading && (
         <>
-          <div className='home-heading'>
+          <div className='posts-heading'>
             <h1>{props.title}</h1>
           </div>
           {posts.map((post, index) => (
