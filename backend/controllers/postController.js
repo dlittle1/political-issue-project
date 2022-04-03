@@ -1,5 +1,6 @@
 const Post = require('../models/post');
 const Tags = require('../models/tags');
+const Comment = require('../models/comment');
 
 exports.getAllPosts = (req, res, next) => {
   let queryObject = { ...req.query };
@@ -153,4 +154,26 @@ exports.getLikePost = (req, res, next) => {
       return res.status(200).send(post);
     }
   );
+};
+
+exports.createCommentOnPost = (req, res, next) => {
+  req.body.user = req.user._id;
+  const newComment = new Comment(req.body);
+  newComment.save((err, comment) => {
+    if (err) {
+      res.status(500);
+      return next(err);
+    }
+    Post.updateOne(
+      { _id: req.params.postId },
+      { $addToSet: { comments: comment._id } },
+      (err, post) => {
+        if (err) {
+          res.status(500);
+          return next(err);
+        }
+      }
+    );
+    return res.status(200).send(comment);
+  });
 };
