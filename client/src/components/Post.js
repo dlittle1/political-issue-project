@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import './componentStyles/post.css';
 import TimeAgo from 'javascript-time-ago';
 import { RequestContext } from '../context/RequestProvider';
@@ -23,7 +24,9 @@ const Post = (props) => {
   const timeAgo = new TimeAgo('en-US');
   return (
     <div key={index} className='post-container'>
-      <h2 className='post-title'>{title}</h2>
+      <Link to={`/home/posts/${_id}`}>
+        <h2 className='post-title'>{title}</h2>
+      </Link>
       <h5>{description}</h5>
       <div className='post-details'>
         <p>
