@@ -5,7 +5,11 @@ exports.getAllPosts = (req, res, next) => {
   let queryObject = { ...req.query };
   let queryString = JSON.stringify(queryObject);
 
+  // REGEX queries localhost:9000/api/posts?tags[regex]=funky|feeling|politics
+
+  queryString = queryString.replace(/\b(regex)\b/g, (match) => `$${match}`);
   let query = Post.find(JSON.parse(queryString));
+
   if (req.query.sort) {
     let sortBy = req.query.sort.split(',').join(' ');
     query = query.sort(sortBy);
