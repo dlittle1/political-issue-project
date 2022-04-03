@@ -122,6 +122,10 @@ export default function RequestProvider(props) {
       .then((response) => response.data);
   };
 
+  const getTags = () => {
+    return userRequestAxios.get(`/api/tags/`).then((response) => response.data);
+  };
+
   return (
     <RequestContext.Provider
       value={{
@@ -132,6 +136,7 @@ export default function RequestProvider(props) {
         likePost,
         deleteLike,
         getLikePost,
+        getTags,
       }}
     >
       {props.children}
