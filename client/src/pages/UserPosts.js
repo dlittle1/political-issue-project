@@ -8,8 +8,6 @@ const UserPosts = () => {
   const { getCurrentUserPosts } = requestContext;
   const { user } = userContext;
 
-  console.log(user);
-
   return (
     <>
       <Posts
