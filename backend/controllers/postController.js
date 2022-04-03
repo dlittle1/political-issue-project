@@ -1,3 +1,4 @@
+const post = require('../models/post');
 const Post = require('../models/post');
 const Tags = require('../models/tags');
 
@@ -6,6 +7,7 @@ exports.getAllPosts = (req, res, next) => {
   let queryString = JSON.stringify(queryObject);
 
   // REGEX queries localhost:9000/api/posts?tags[regex]=funky|feeling|politics
+  // title[regex]=(?i)(?=.*post)(?=.*dylan)&createdBy=62462d12767bdc1d76ee6d2e
 
   queryString = queryString.replace(/\b(regex)\b/g, (match) => `$${match}`);
   let query = Post.find(JSON.parse(queryString));
@@ -36,8 +38,7 @@ exports.getAllPosts = (req, res, next) => {
 };
 
 exports.getOnePost = (req, res, next) => {
-  let ObjectId = require('mongoose').Types.ObjectId;
-  Post.findOne({ _id: new ObjectId(req.params.postId) })
+  Post.findOne({ _id: req.params.postId })
     .populate([
       {
         path: 'comments',
@@ -45,6 +46,7 @@ exports.getOnePost = (req, res, next) => {
         populate: { path: 'user' },
       },
     ])
+    .populate([{ path: 'createdBy' }])
     .exec((err, populatedPost) => {
       if (err) {
         res.status(500);
