@@ -9,33 +9,32 @@ import NewPosts from './pages/NewPosts';
 import UserPosts from './pages/UserPosts';
 import UsersLikedPosts from './pages/UsersLikedPosts';
 import PostPage from './pages/PostPage';
+import PostForm from './pages/PostForm';
 
 function App() {
   const { token } = useContext(UserContext);
   return (
     <Routes>
       <Route
-        path='/'
-        element={
-          token ? <Navigate replace to='/home/popular' /> : <LandingPage />
-        }
+        path='/login'
+        element={token ? <Navigate replace to='/popular' /> : <LandingPage />}
       />
       <Route
         path='/signup'
-        element={
-          token ? <Navigate replace to='/home/popular' /> : <LandingPage />
-        }
+        element={token ? <Navigate replace to='/popular' /> : <LandingPage />}
       />
       <Route element={<Navbar />}>
         <Route
-          path='/home'
-          element={!token ? <Navigate replace to='/' /> : <Home />}
+          path='/'
+          element={!token ? <Navigate replace to='/login' /> : <Home />}
         >
-          <Route path='/home/popular' element={<Popular />} />
-          <Route path='/home/new' element={<NewPosts />} />
-          <Route path='/home/user/posts' element={<UserPosts />} />
-          <Route path='/home/likes' element={<UsersLikedPosts />} />
-          <Route path='/home/posts/:postId' element={<PostPage />} />
+          <Route path='/popular' element={<Popular />} />
+          <Route path='/new' element={<NewPosts />} />
+          <Route path='/user/posts' element={<UserPosts />} />
+          <Route path='/likes' element={<UsersLikedPosts />} />
+          <Route path='/posts/new' element={<PostForm />} />
+          <Route path='/posts/edit/:postId' element={<PostForm />} />
+          <Route path='/posts/:postId' element={<PostPage />} />
         </Route>
       </Route>
     </Routes>
