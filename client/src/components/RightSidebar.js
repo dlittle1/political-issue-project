@@ -1,6 +1,7 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { RequestContext } from '../context/RequestProvider';
 import './componentStyles/rightSidebar.css';
+import { Link } from 'react-router-dom';
 
 const RightSidebar = () => {
   const context = useContext(RequestContext);
@@ -17,7 +18,9 @@ const RightSidebar = () => {
       <div className='tags-container'>
         {tags.map((tag, index) => (
           <span className='tag' key={tag + '-' + index}>
-            {tag}
+            <Link to={`/posts/tags/${tag}`}>
+              <span style={{ color: 'white' }}>{tag}</span>
+            </Link>
           </span>
         ))}
       </div>

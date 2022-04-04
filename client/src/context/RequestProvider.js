@@ -121,6 +121,12 @@ export default function RequestProvider(props) {
     return userRequestAxios.get(`/api/tags/`).then((response) => response.data);
   };
 
+  const getPostsByTag = (tag) => {
+    return userRequestAxios
+      .get(`/api/posts?tags[regex]=${tag}`)
+      .then((response) => response.data);
+  };
+
   return (
     <RequestContext.Provider
       value={{
@@ -137,6 +143,7 @@ export default function RequestProvider(props) {
         createCommentOnPost,
         deletePost,
         updatePost,
+        getPostsByTag,
       }}
     >
       {props.children}
