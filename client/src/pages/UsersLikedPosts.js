@@ -1,13 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Posts from '../components/Posts';
-import { RequestContext } from '../context/RequestProvider';
-const UserPosts = () => {
-  const requestContext = useContext(RequestContext);
-  const { getUsersLikedPosts } = requestContext;
 
+const UserPosts = () => {
   return (
     <>
-      <Posts title={`Your Liked Posts`} apiMethod={getUsersLikedPosts} />
+      <Posts title={`Your Liked Posts`} apiMethod={'getUsersLikedPosts'} />
     </>
   );
 };

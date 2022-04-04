@@ -1,13 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Posts from '../components/Posts';
-import { RequestContext } from '../context/RequestProvider';
-const Popular = (props) => {
-  const requestContext = useContext(RequestContext);
-  const { getPopularPosts } = requestContext;
 
+const Popular = (props) => {
   return (
     <>
-      <Posts title='Popular Posts' apiMethod={getPopularPosts} />
+      <Posts title='Popular Posts' apiMethod={'getPopularPosts'} />
     </>
   );
 };
