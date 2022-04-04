@@ -12,7 +12,8 @@ const Post = () => {
   const [post, setPost] = useState([{}]);
   const [loading, setLoading] = useState(true);
   const [isCommenting, setIsCommenting] = useState(false);
-  const [comment, setComment] = useState(' ');
+  const [comment, setComment] = useState({ body: '' });
+  const [comments, setComments] = useState([]);
   const timeAgo = new TimeAgo('en-US');
 
   const { getLikePost, likePost, deleteLike, createCommentOnPost } = context;
@@ -24,39 +25,44 @@ const Post = () => {
       .then((response) => setLoading(false))
       .catch((error) => console.log(error));
   }, []);
-
   const commentFormStyle = { display: isCommenting ? 'block' : 'none' };
 
   const handleChange = (e) => {
-    const { value } = e.target;
-    console.log(value);
-    setComment(value);
+    const { name, value } = e.target;
+    setComment({ [name]: value });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     createCommentOnPost(post._id, comment)
-      .then((response) => console.log(response))
+      .then((response) =>
+        setPost((prevState) => ({
+          ...prevState,
+          comments: [...prevState.comments, response],
+        }))
+      )
       .catch((error) => console.log(error));
   };
-  console.log(comment);
   return (
     <div className='post-page'>
       {!loading && (
         <>
           <div className='post-page-container'>
             <h1>{post.title}</h1>
-            <p>
+            <div className='post-page-title-contents'>
               <span style={{ marginRight: '20px' }}>
                 Created {timeAgo.format(new Date(post.createdAt))}
               </span>
-              <LikeButton
-                likes={post.upvotes}
-                getLikePost={getLikePost}
-                likePost={likePost}
-                deleteLike={deleteLike}
-                _id={post._id}
-              />
-            </p>
+              <span className='post-like-button'>
+                <LikeButton
+                  likes={post.upvotes}
+                  getLikePost={getLikePost}
+                  likePost={likePost}
+                  deleteLike={deleteLike}
+                  _id={post._id}
+                />
+              </span>
+            </div>
             <hr />
             <p>{post.description}</p>
             <div className='post-page-created-by'>
@@ -67,13 +73,36 @@ const Post = () => {
               </div>
             </div>
           </div>
-          <hr />
+
           <p
             className='post-page-comment-link'
             onClick={() => setIsCommenting((prevState) => !prevState)}
           >
             comment
           </p>
+          {post.comments && (
+            <div>
+              {post.comments.map((comment, index) => (
+                <div key={comment + index}>
+                  <hr />
+                  <div className='post-comment'>
+                    <p>{comment.body}</p>
+                    <p>
+                      {' '}
+                      -{' '}
+                      <span className='post-comment-user'>
+                        {comment.user.username}
+                      </span>{' '}
+                      <span className='post-comment-created'>
+                        {timeAgo.format(new Date(comment.createdAt))}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
           <form
             className='post-page-comment-form'
             style={commentFormStyle}
@@ -84,7 +113,7 @@ const Post = () => {
               name='body'
               placeholder='Comment...'
               className='post-page-comment-input'
-              value={comment}
+              value={comment.body}
               onChange={handleChange}
             />
             <button className='post-page-comment-button'>Submit</button>
