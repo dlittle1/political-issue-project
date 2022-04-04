@@ -156,17 +156,14 @@ exports.getLikePost = (req, res, next) => {
   );
 };
 
-exports.createCommentOnPost = (req, res, next) => {
-  req.body.user = req.user._id;
-  const newComment = new Comment(req.body);
-  newComment.save((err, comment) => {
-    if (err) {
-      res.status(500);
-      return next(err);
-    }
+exports.createCommentOnPost = async (req, res, next) => {
+  try {
+    req.body.user = req.user._id;
+    let newComment = await Comment.create(req.body);
+
     Post.updateOne(
       { _id: req.params.postId },
-      { $addToSet: { comments: comment._id } },
+      { $addToSet: { comments: newComment._id } },
       (err, post) => {
         if (err) {
           res.status(500);
@@ -174,6 +171,11 @@ exports.createCommentOnPost = (req, res, next) => {
         }
       }
     );
-    return res.status(200).send(comment);
-  });
+
+    newComment = await newComment.populate([{ path: 'user' }]);
+    return res.status(200).send(newComment);
+  } catch (err) {
+    res.status(500);
+    return next(err);
+  }
 };
