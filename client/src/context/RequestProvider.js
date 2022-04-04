@@ -61,26 +61,23 @@ export default function RequestProvider(props) {
 
   // Create a new post
   const createPost = (post) => {
-    userRequestAxios
+    return userRequestAxios
       .post('/api/posts/', post)
-      .then((response) => console.log(response))
-      .catch((err) => console.dir(err));
+      .then((response) => response.data);
   };
 
   // Update post
-  const updatePost = (post) => {
-    userRequestAxios
-      .put('/api/posts', post)
-      .then((response) => console.log(response))
-      .catch((err) => console.dir(err));
+  const updatePost = (postId, updatedPost) => {
+    return userRequestAxios
+      .put(`/api/posts/${postId}`, updatedPost)
+      .then((response) => response.data);
   };
 
   // Delete post
   const deletePost = (postId) => {
-    userRequestAxios
+    return userRequestAxios
       .delete(`/api/posts/${postId}`)
-      .then((response) => console.log(response))
-      .catch((err) => console.dir(err));
+      .then((response) => response.data);
   };
 
   // POST COMMENTS
@@ -131,12 +128,15 @@ export default function RequestProvider(props) {
         getNewPosts,
         getCurrentUserPosts,
         getUsersLikedPosts,
+        createPost,
         likePost,
         deleteLike,
         getLikePost,
         getTags,
         getOnePost,
         createCommentOnPost,
+        deletePost,
+        updatePost,
       }}
     >
       {props.children}
