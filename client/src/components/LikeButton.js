@@ -36,21 +36,20 @@ const LikeButton = (props) => {
   let likeButtonStyle;
   if (hasLikedPost) {
     likeButtonStyle = {
-      color: '#5873fd',
+      color: 'rgb(89,115,252)',
     };
   }
 
   return (
     <>
-      <span className='post-thumbs-up' style={likeButtonStyle}>
+      {/* like-button styling at home.css */}
+      <span style={likeButtonStyle} className='like-button'>
         <FontAwesomeIcon
           icon={faThumbsUp}
-          size='sm'
           onClick={() => handleLikeClick(_id)}
         />
       </span>
-
-      {numLikes}
+      <p>{numLikes}</p>
     </>
   );
 };
