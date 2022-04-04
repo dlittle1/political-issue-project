@@ -10,6 +10,7 @@ import UserPosts from './pages/UserPosts';
 import UsersLikedPosts from './pages/UsersLikedPosts';
 import PostPage from './pages/PostPage';
 import PostForm from './pages/PostForm';
+import TagPosts from './pages/TagPosts';
 
 function App() {
   const { token } = useContext(UserContext);
@@ -35,6 +36,7 @@ function App() {
           <Route path='/posts/new' element={<PostForm />} />
           <Route path='/posts/edit/:postId' element={<PostForm />} />
           <Route path='/posts/:postId' element={<PostPage />} />
+          <Route path='/posts/tags/:tagId' element={<TagPosts />} />
         </Route>
       </Route>
     </Routes>
