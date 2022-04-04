@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Post from './Post';
 import './componentStyles/posts.css';
+import { RequestContext } from '../context/RequestProvider';
+
 const Posts = (props) => {
   const [posts, setPosts] = useState();
   const [loading, setLoading] = useState(true);
+  const context = useContext(RequestContext);
 
   useEffect(() => {
     props
@@ -18,6 +21,15 @@ const Posts = (props) => {
     }
   }, [posts]);
 
+  const handleDelete = (postId) => {
+    context
+      .deletePost(postId)
+      .then((response) => console.log(response))
+      .catch((error) => console.dir(error));
+
+    setPosts((prevState) => prevState.filter((post) => post._id !== postId));
+  };
+
   return (
     <div>
       {!loading && (
@@ -26,7 +38,12 @@ const Posts = (props) => {
             <h1>{props.title}</h1>
           </div>
           {posts.map((post, index) => (
-            <Post {...post} index={index} key={post._id} />
+            <Post
+              {...post}
+              index={index}
+              key={post._id}
+              handleDelete={handleDelete}
+            />
           ))}
         </>
       )}
