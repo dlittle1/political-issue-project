@@ -6,7 +6,11 @@ import { UserContext } from '../context/UserProvider';
 const LoginSignupForm = () => {
   const { signup, login } = useContext(UserContext);
 
-  const [inputs, setInputs] = useState({ email: '', password: '' });
+  const [inputs, setInputs] = useState({
+    email: '',
+    username: '',
+    password: '',
+  });
 
   const slug = window.location.href.substring(
     window.location.href.lastIndexOf('/')
@@ -42,6 +46,19 @@ const LoginSignupForm = () => {
           <p style={{ margin: '5px' }}>forgot password?</p>
         </>
       )}
+      {onSignupPage && (
+        <>
+          <input
+            type='text'
+            name='username'
+            placeholder='Username'
+            value={inputs.username}
+            onChange={handleChange}
+          />
+          <br />
+        </>
+      )}
+
       <input
         type='text'
         name='email'
