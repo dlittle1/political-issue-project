@@ -10,6 +10,8 @@
   flex: 1;
   color: rgb(66, 66, 66);
   font-size: 17px;
+  transform: scale(1);
+  position: relative;
 }
 
 .home-left-sidebar {
@@ -23,4 +25,8 @@
 
 .home-posts-container {
   flex: 3;
+}
+
+.like-button:hover {
+  cursor: pointer;
 }

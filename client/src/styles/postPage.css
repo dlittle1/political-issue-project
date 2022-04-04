@@ -1,5 +1,15 @@
-.post {
-  margin: 20px;
+.post-page {
+  margin: 40px;
+}
+
+.post-page hr {
+  margin: 0;
+  border: 0;
+  border-top: 1px solid #ccc;
+}
+
+.post-page-title-contents {
+  margin-top: 15px;
 }
 
 .post-page-created-by {
@@ -11,16 +21,39 @@
   margin-bottom: -10px;
 }
 
+.post-like-button p {
+  display: inline;
+  margin-left: 5px;
+}
+
+.post-page-container {
+  min-height: 270px;
+}
+
 .post-page-user-container {
   margin-top: 0px;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
 }
 
 .post-page-user-container svg {
   width: 100px;
   height: 75px;
   margin-right: -10px;
+}
+
+.post-comment {
+  display: flex;
+  justify-content: space-between;
+}
+
+.post-comment-user {
+  color: rgb(1, 116, 205);
+}
+
+.post-comment-created {
+  color: rgb(147, 147, 147);
+  font-size: 12px;
 }
 
 .post-page-comment-link {
@@ -34,7 +67,7 @@
 .post-page-comment-input {
   padding: 10px;
   margin-top: 20px;
-  border: 2px solid #5873fd;
+  border: 2px solid #5874fd8a;
   border-radius: 0.5rem;
   width: 100%;
 }
