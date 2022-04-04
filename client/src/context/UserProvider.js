@@ -36,8 +36,14 @@ export default function UserProvider(props) {
       .catch((err) => console.dir(err.response.data.errorMessage));
   };
 
+  const signout = () => {
+    setUserState({ user: {}, token: '' });
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+  };
+
   return (
-    <UserContext.Provider value={{ ...userState, signup, login }}>
+    <UserContext.Provider value={{ ...userState, signup, login, signout }}>
       {props.children}
     </UserContext.Provider>
   );
