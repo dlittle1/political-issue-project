@@ -9,8 +9,7 @@ const Posts = (props) => {
   const context = useContext(RequestContext);
 
   useEffect(() => {
-    props
-      .apiMethod()
+    context[props.apiMethod](props.params)
       .then((response) => setPosts(response))
       .catch((error) => console.dir(error));
   }, [props]);
@@ -37,14 +36,23 @@ const Posts = (props) => {
           <div className='posts-heading'>
             <h1>{props.title}</h1>
           </div>
-          {posts.map((post, index) => (
-            <Post
-              {...post}
-              index={index}
-              key={post._id}
-              handleDelete={handleDelete}
-            />
-          ))}
+          {posts.length === 0 ? (
+            <h3 style={{ margin: '50px' }}>
+              No posts found{' '}
+              {props.title.includes('#') && `with the tag ${props.title}`}
+            </h3>
+          ) : (
+            <>
+              {posts.map((post, index) => (
+                <Post
+                  {...post}
+                  index={index}
+                  key={post._id}
+                  handleDelete={handleDelete}
+                />
+              ))}
+            </>
+          )}
         </>
       )}
     </div>
