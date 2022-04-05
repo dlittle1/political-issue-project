@@ -9,7 +9,7 @@ exports.getAllPosts = (req, res, next) => {
   // REGEX queries localhost:9000/api/posts?tags[regex]=funky|feeling|politics
   // title[regex]=(?i)(?=.*post)(?=.*dylan)&createdBy=62462d12767bdc1d76ee6d2e
 
-  queryString = queryString.replace(/\b(regex)\b/g, (match) => `$${match}`);
+  queryString = queryString.replace(/\b(regex|in)\b/g, (match) => `$${match}`);
   let query = Post.find(JSON.parse(queryString));
 
   if (req.query.sort) {

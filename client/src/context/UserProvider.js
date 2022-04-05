@@ -5,7 +5,11 @@ export const UserContext = React.createContext();
 
 const userAxios = axios.create();
 
-userAxios.interceptors.request.use((config) => {});
+userAxios.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token');
+  config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});
 
 export default function UserProvider(props) {
   const initState = {
@@ -32,7 +36,12 @@ export default function UserProvider(props) {
   const login = (credentials) => {
     axios
       .post('/auth/login', credentials)
-      .then((response) => storeUser(response.data))
+      .then((response) => {
+        storeUser(response.data);
+        getUsersLikedPosts().then((response) => {
+          localStorage.setItem('likedPosts', JSON.stringify(response));
+        });
+      })
       .catch((err) => console.dir(err.response.data.errorMessage));
   };
 
@@ -40,6 +49,15 @@ export default function UserProvider(props) {
     setUserState({ user: {}, token: '' });
     localStorage.removeItem('user');
     localStorage.removeItem('token');
+    localStorage.removeItem('likedPosts');
+  };
+
+  const getUsersLikedPosts = () => {
+    const currentUser = JSON.parse(localStorage.getItem('user'));
+    const { _id } = currentUser;
+    return userAxios
+      .get(`/api/posts?likes=${_id}`)
+      .then((response) => response.data);
   };
 
   return (
