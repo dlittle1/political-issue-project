@@ -30,6 +30,13 @@ app.use((err, req, res, next) => {
   return res.json({ errorMessage: err.message });
 });
 
+const path = require('path');
+
+app.use(express.static(path.resolve(__dirname, '../client/build')));
+app.get('*', function (req, res) {
+  res.sendFile(path.resolve(__dirname, '../client/build'));
+});
+
 const port = process.env.PORT;
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
