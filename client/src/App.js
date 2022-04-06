@@ -30,14 +30,40 @@ function App() {
           path='/'
           element={!token ? <Navigate replace to='/login' /> : <Home />}
         >
-          <Route path='/popular' element={<Popular />} />
-          <Route path='/new' element={<NewPosts />} />
-          <Route path='/user/posts' element={<UserPosts />} />
-          <Route path='/likes' element={<UsersLikedPosts />} />
-          <Route path='/posts/new' element={<PostForm />} />
-          <Route path='/posts/edit/:postId' element={<PostForm />} />
-          <Route path='/posts/:postId' element={<PostPage />} />
-          <Route path='/posts/tags/:tagId' element={<TagPosts />} />
+          <Route
+            path='/popular'
+            element={!token ? <Navigate replace to='/login' /> : <Popular />}
+          />
+          <Route
+            path='/new'
+            element={!token ? <Navigate replace to='/login' /> : <NewPosts />}
+          />
+          <Route
+            path='/user/posts'
+            element={!token ? <Navigate replace to='/login' /> : <UserPosts />}
+          />
+          <Route
+            path='/likes'
+            element={
+              !token ? <Navigate replace to='/login' /> : <UsersLikedPosts />
+            }
+          />
+          <Route
+            path='/posts/new'
+            element={!token ? <Navigate replace to='/login' /> : <PostForm />}
+          />
+          <Route
+            path='/posts/edit/:postId'
+            element={!token ? <Navigate replace to='/login' /> : <PostForm />}
+          />
+          <Route
+            path='/posts/:postId'
+            element={!token ? <Navigate replace to='/login' /> : <PostPage />}
+          />
+          <Route
+            path='/posts/tags/:tagId'
+            element={!token ? <Navigate replace to='/login' /> : <TagPosts />}
+          />
         </Route>
       </Route>
     </Routes>

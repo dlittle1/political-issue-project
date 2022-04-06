@@ -21,6 +21,7 @@ export default function UserProvider(props) {
   const storeUser = ({ user, token }) => {
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('token', token);
+    localStorage.setItem('likedPosts', JSON.stringify([]));
     setUserState((prevUserState) => ({ ...prevUserState, user, token }));
   };
 
