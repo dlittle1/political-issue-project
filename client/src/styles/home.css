@@ -23,6 +23,18 @@
   left: 0;
 }
 
+.home-menu-button-active {
+  display: none;
+}
+
+.home-left-menu {
+  display: none;
+}
+
+.home-menu-button {
+  display: none;
+}
+
 .home-posts-container {
   flex: 3;
 }
