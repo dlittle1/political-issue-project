@@ -60,6 +60,8 @@ export default function UserProvider(props) {
       .then((response) => response.data);
   };
 
+  console.log(userState);
+
   return (
     <UserContext.Provider value={{ ...userState, signup, login, signout }}>
       {props.children}

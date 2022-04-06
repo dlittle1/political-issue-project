@@ -1,6 +1,19 @@
 @media screen and (max-width: 900px) {
+  /* Landing Page */
+  .landing-page-body {
+    display: block;
+  }
+  .landing-page-image {
+    display: none;
+  }
+  .landing-page-content-container {
+    width: 100%;
+  }
+
+  /* Home */
   .home-container {
     margin-left: 0px;
+    display: block;
   }
   .home-right-sidebar {
     display: none;
@@ -9,5 +22,51 @@
     width: 150px;
     position: absolute;
     display: none;
+  }
+
+  /* Navbar */
+  .navbar {
+    justify-content: space-around;
+  }
+  .nav-item-container,
+  .nav-item {
+    margin: 0;
+    flex: none;
+  }
+  .nav-logo {
+    flex: none;
+  }
+
+  /* Posts */
+  .posts-heading {
+    padding-bottom: 30px;
+    padding-left: 10px;
+    padding-top: 20px;
+  }
+
+  /* Post in list*/
+  .post-container {
+    padding: 10px;
+  }
+  .post-tags {
+    display: none;
+  }
+  .post-container .post-options {
+    display: none;
+  }
+
+  /* PostPage */
+  .post-page {
+    padding: 10px;
+    margin: 0;
+  }
+
+  /* PostPage Comment */
+  .post-page-comment-input {
+    padding: 10px 0px 10px 5px;
+    width: 95%;
+  }
+  .post-page-comment-form {
+    text-align: center;
   }
 }

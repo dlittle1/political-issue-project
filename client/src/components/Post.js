@@ -73,7 +73,7 @@ const Post = (props) => {
           </div>
         </div>
 
-        <ul>
+        <ul className='post-tags'>
           {tags.map((tag, index) => (
             <li key={index + tag} className='post-tag'>
               {tag}

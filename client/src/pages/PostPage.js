@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { RequestContext } from '../context/RequestProvider';
+import { UserContext } from '../context/UserProvider';
 import { useParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import TimeAgo from 'javascript-time-ago';
 import '../styles/postPage.css';
 import { BigHead } from '@bigheads/core';
@@ -8,6 +10,8 @@ import LikeButton from '../components/LikeButton';
 
 const Post = () => {
   const context = useContext(RequestContext);
+  const userContext = useContext(UserContext);
+  const navigate = useNavigate();
   const params = useParams();
   const [post, setPost] = useState([{}]);
   const [loading, setLoading] = useState(true);
@@ -16,7 +20,10 @@ const Post = () => {
   const [comments, setComments] = useState([]);
   const timeAgo = new TimeAgo('en-US');
 
-  const { getLikePost, likePost, deleteLike, createCommentOnPost } = context;
+  const { user } = userContext;
+
+  const { getLikePost, likePost, deleteLike, createCommentOnPost, deletePost } =
+    context;
 
   useEffect(() => {
     context
@@ -43,6 +50,13 @@ const Post = () => {
       )
       .catch((error) => console.log(error));
   };
+
+  const handleDelete = (e, postId) => {
+    deletePost(postId)
+      .then((response) => navigate('/popular', { replace: true }))
+      .catch((error) => console.log(error));
+  };
+
   return (
     <div className='post-page'>
       {!loading && (
@@ -62,6 +76,18 @@ const Post = () => {
                   _id={post._id}
                 />
               </span>
+              {user._id === post.createdBy._id && (
+                <div className='post-options'>
+                  <Link to={`/posts/edit/${post._id}`}>
+                    <span className='post-edit'>
+                      <p>edit</p>
+                    </span>
+                  </Link>
+                  <span className='post-delete'>
+                    <p onClick={(e) => handleDelete(e, post._id)}>delete</p>
+                  </span>
+                </div>
+              )}
             </div>
             <hr />
             <p>{post.description}</p>
