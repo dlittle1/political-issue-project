@@ -17,7 +17,7 @@ authRouter.post('/signup', (req, res, next) => {
       return next(new Error('User already exists with that email address'));
     }
     req.body.avatar = { ...getRandomOptions() };
-    console.log(req.body);
+
     const newUser = new User(req.body);
     newUser.save((err, savedUser) => {
       if (err) {
