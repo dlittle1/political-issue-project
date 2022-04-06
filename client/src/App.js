@@ -11,6 +11,7 @@ import UsersLikedPosts from './pages/UsersLikedPosts';
 import PostPage from './pages/PostPage';
 import PostForm from './pages/PostForm';
 import TagPosts from './pages/TagPosts';
+import './styles/mobileStyles.css';
 
 function App() {
   const { token } = useContext(UserContext);

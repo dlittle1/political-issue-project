@@ -1,0 +1,13 @@
+@media screen and (max-width: 900px) {
+  .home-container {
+    margin-left: 0px;
+  }
+  .home-right-sidebar {
+    display: none;
+  }
+  .home-left-sidebar {
+    width: 150px;
+    position: absolute;
+    display: none;
+  }
+}

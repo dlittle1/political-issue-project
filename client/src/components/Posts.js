@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import Post from './Post';
 import './componentStyles/posts.css';
 import { RequestContext } from '../context/RequestProvider';
+import { NavLink } from 'react-router-dom';
 
 const Posts = (props) => {
   const [posts, setPosts] = useState();
