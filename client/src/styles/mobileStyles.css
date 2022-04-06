@@ -15,12 +15,52 @@
     margin-left: 0px;
     display: block;
   }
+
+  .home-posts-container {
+  }
+
   .home-right-sidebar {
     display: none;
   }
-  .home-left-sidebar {
+
+  .home-menu-button {
+    background-color: #5873fd;
+    position: fixed;
+    padding: 10px;
+    color: white;
+    top: 60px;
+    border-radius: 0.5rem;
+    padding-left: 30px;
+    margin-left: -15px;
+    z-index: 20;
+  }
+
+  .home-menu-button-active {
+    position: fixed;
+    z-index: 20;
+    left: 120px;
+    top: 70px;
+    color: white;
+  }
+
+  .home-left-menu {
+    border-right: 1px solid rgb(209, 209, 209);
+    background-color: #5873fd;
+    position: fixed;
+    height: 100%;
+    left: 0;
     width: 150px;
-    position: absolute;
+  }
+
+  .left-sidebar {
+    width: 100%;
+  }
+
+  .left-sidebar ul {
+    margin: 0;
+  }
+
+  .home-left-sidebar {
     display: none;
   }
 
@@ -41,7 +81,7 @@
   .posts-heading {
     padding-bottom: 30px;
     padding-left: 10px;
-    padding-top: 20px;
+    padding-top: 60px;
   }
 
   /* Post in list*/
@@ -61,6 +101,10 @@
     margin: 0;
   }
 
+  .post-page-container {
+    padding-top: 60px;
+  }
+
   /* PostPage Comment */
   .post-page-comment-input {
     padding: 10px 0px 10px 5px;
@@ -68,5 +112,14 @@
   }
   .post-page-comment-form {
     text-align: center;
+  }
+
+  /* Post Form */
+  .post-form {
+    margin: 30px 35px 0px 10px;
+    padding: 0;
+  }
+  .post-form-title {
+    padding-top: 60px;
   }
 }

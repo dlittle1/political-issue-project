@@ -12,7 +12,7 @@ const LikeButton = (props) => {
     const likedPosts = JSON.parse(localStorage.getItem('likedPosts'));
 
     let likedPost = likedPosts.filter((post) => post._id === postId);
-    console.log(likedPost);
+
     if (likedPost.length !== 0) {
       setHasLikedPost(true);
     } else {
