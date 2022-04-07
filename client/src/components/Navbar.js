@@ -7,6 +7,7 @@ import {
   faHouse,
   faUser,
   faRightFromBracket,
+  faHandHorns,
 } from '@fortawesome/pro-solid-svg-icons';
 
 const Navbar = () => {
@@ -21,19 +22,11 @@ const Navbar = () => {
       <nav className='navbar'>
         <li className='nav-logo'>
           <Link to='/popular' style={{ color: '#2c2c2c' }}>
-            Rock the Vote
+            Rock the Vote <FontAwesomeIcon icon={faHandHorns} />
           </Link>
         </li>
 
         <ul className='nav-item-container'>
-          {/* <li className='nav-item'>
-            <Link to='/popular' style={{ color: '#2c2c2c' }}>
-              <FontAwesomeIcon icon={faHouse} />
-            </Link>
-          </li> */}
-          {/* <li className='nav-item'>
-            <FontAwesomeIcon icon={faUser} />
-          </li> */}
           <li className='nav-item' onClick={handleSignout}>
             <p style={{ display: 'inline', marginRight: '10px' }}>Sign Out</p>
             <FontAwesomeIcon icon={faRightFromBracket} />

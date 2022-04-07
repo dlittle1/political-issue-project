@@ -74,10 +74,9 @@
   .nav-item-container,
   .nav-item {
     margin: 0;
-    flex: none;
   }
   .nav-logo {
-    flex: none;
+    margin-left: 0px;
   }
 
   /* Posts */
