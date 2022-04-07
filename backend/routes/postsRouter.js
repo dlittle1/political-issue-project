@@ -9,17 +9,12 @@ const {
   deletePost,
   likePost,
   deleteLike,
-  getLikePost,
   createCommentOnPost,
 } = postController;
 
 postRouter.route('/').get(getAllPosts).post(createPost);
 postRouter.route('/:postId/comments').post(createCommentOnPost);
 postRouter.route('/:postId').get(getOnePost).put(updatePost).delete(deletePost);
-postRouter
-  .route('/:postId/like')
-  .put(likePost)
-  .get(getLikePost)
-  .delete(deleteLike);
+postRouter.route('/:postId/like').put(likePost).delete(deleteLike);
 
 module.exports = postRouter;
