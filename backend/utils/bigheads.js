@@ -25,7 +25,10 @@ exports.getRandomOptions = () => {
   const mouth = selectRandomKey(mouthsMap);
   const hair = selectRandomKey(hairMap);
   const facialHair = selectRandomKey(facialHairMap);
-  const clothing = selectRandomKey(clothingMap);
+  let clothing = selectRandomKey(clothingMap);
+  if (clothing === 'naked') {
+    clothing = 'shirt';
+  }
   const accessory = selectRandomKey(accessoryMap);
   const graphic = selectRandomKey(graphicsMap);
   const hat = selectRandomKey(hatMap);
