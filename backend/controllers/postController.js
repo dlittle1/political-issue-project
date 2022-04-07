@@ -2,7 +2,7 @@ const Post = require('../models/post');
 const Tags = require('../models/tags');
 const Comment = require('../models/comment');
 
-exports.getAllPosts = (req, res, next) => {
+exports.getAllPosts = async (req, res, next) => {
   let queryObject = { ...req.query };
   let queryString = JSON.stringify(queryObject);
 
@@ -10,150 +10,144 @@ exports.getAllPosts = (req, res, next) => {
   // title[regex]=(?i)(?=.*post)(?=.*dylan)&createdBy=62462d12767bdc1d76ee6d2e
 
   queryString = queryString.replace(/\b(regex|in)\b/g, (match) => `$${match}`);
-  let query = Post.find(JSON.parse(queryString));
 
-  if (req.query.sort) {
-    let sortBy = req.query.sort.split(',').join(' ');
-    query = query.sort(sortBy);
-  } else {
-    query = query.sort('-price');
+  try {
+    let query = Post.find(JSON.parse(queryString));
+
+    if (req.query.sort) {
+      let sortBy = req.query.sort.split(',').join(' ');
+      query = query.sort(sortBy);
+    } else {
+      query = query.sort('-price');
+    }
+
+    const posts = await query
+      .populate([
+        {
+          path: 'comments',
+          options: { sort: { createdAt: 1 } },
+          populate: { path: 'user' },
+        },
+      ])
+      .populate([{ path: 'createdBy' }]);
+
+    res.status(200).send(posts);
+  } catch (err) {
+    res.status(500);
+    return next(err);
   }
-
-  query
-    .populate([
-      {
-        path: 'comments',
-        options: { sort: { createdAt: 1 } },
-        populate: { path: 'user' },
-      },
-    ])
-    .populate([{ path: 'createdBy' }])
-    .exec((err, populatedPost) => {
-      if (err) {
-        res.status(500);
-        return next(err);
-      }
-      return res.status(200).send(populatedPost);
-    });
 };
 
-exports.getOnePost = (req, res, next) => {
-  Post.findOne({ _id: req.params.postId })
-    .populate([
-      {
-        path: 'comments',
-        options: { sort: { createdAt: 1 } },
-        populate: { path: 'user' },
-      },
-    ])
-    .populate([{ path: 'createdBy' }])
-    .exec((err, populatedPost) => {
-      if (err) {
-        res.status(500);
-        return next(err);
-      }
-      return res.status(200).send(populatedPost);
-    });
+exports.getOnePost = async (req, res, next) => {
+  try {
+    const post = await Post.findOne({ _id: req.params.postId })
+      .populate([
+        {
+          path: 'comments',
+          options: { sort: { createdAt: 1 } },
+          populate: { path: 'user' },
+        },
+      ])
+      .populate([{ path: 'createdBy' }]);
+
+    res.status(200).send(post);
+  } catch (err) {
+    res.status(500);
+    return next(err);
+  }
 };
 
-exports.createPost = (req, res, next) => {
+exports.createPost = async (req, res, next) => {
   req.body.createdBy = req.user._id;
-  const newPost = new Post(req.body);
-  newPost.save((err, savedPost) => {
-    if (err) {
-      res.status(500);
-      return next(err);
-    }
-    Tags.updateOne({}, { $addToSet: { tags: savedPost.tags } }, (err, tags) => {
-      if (err) {
-        res.status(500);
-        next(err);
-      }
+
+  try {
+    const newPost = new Post(req.body);
+    const savedPost = await newPost.save((err, savedPost) => {
+      Tags.updateOne(
+        {},
+        { $addToSet: { tags: savedPost.tags } },
+        (err, tags) => {
+          if (err) {
+            res.status(500);
+            next(err);
+          }
+        }
+      );
+      return res.status(201).send(savedPost);
     });
-    return res.status(201).send(savedPost);
-  });
+  } catch (err) {
+    res.status(500);
+    return next(err);
+  }
 };
 
-exports.updatePost = (req, res, next) => {
-  Post.findOneAndUpdate(
-    { $and: [{ _id: req.params.postId }, { createdBy: req.user._id }] },
-    req.body,
-    { new: true },
-    (err, updatedPost) => {
-      if (err) {
-        res.status(500);
-        return next(err);
-      }
-      if (!updatedPost) {
-        res.status(404);
-        return next(new Error('User has no posts with this ID'));
-      }
-      return res.status(201).send(updatedPost);
+exports.updatePost = async (req, res, next) => {
+  try {
+    const updatedPost = await Post.findOneAndUpdate(
+      { $and: [{ _id: req.params.postId }, { createdBy: req.user._id }] },
+      req.body,
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedPost) {
+      res.status(404);
+      return next(new Error('User has no posts with this ID'));
     }
-  );
+    return res.status(201).send(updatedPost);
+  } catch (err) {
+    res.status(500);
+    return next(err);
+  }
 };
 
-exports.deletePost = (req, res, next) => {
-  Post.findOneAndDelete(
-    { _id: req.params.postId, createdBy: req.user._id },
-    (err, deletedPost) => {
-      if (err) {
-        res.status(500);
-        return next(err);
-      }
-      if (!deletedPost) {
-        res.status(404);
-        return next(new Error('User has no posts with this ID'));
-      }
-      return res.status(200).send(`Successfully deleted ${deletedPost.title}`);
+exports.deletePost = async (req, res, next) => {
+  try {
+    const deletedPost = await Post.findOneAndDelete({
+      _id: req.params.postId,
+      createdBy: req.user._id,
+    });
+
+    if (!deletedPost) {
+      res.status(404);
+      return next(new Error('User has no posts with this ID'));
     }
-  );
+    return res.status(200).send(`Successfully deleted ${deletedPost.title}`);
+  } catch (err) {
+    res.status(500);
+    return next(err);
+  }
 };
 
-exports.likePost = (req, res, next) => {
-  Post.updateOne(
-    { _id: req.params.postId },
-    { $addToSet: { likes: req.user._id }, $inc: { upvotes: 1 } },
-    { new: true },
-    (err, updateResult) => {
-      if (err) {
-        res.status(500);
-        return next(err);
-      }
-      if (updateResult.modifiedCount === 0) {
-        return res.status(400).send('Cannot like a post more than once');
-      }
-      return res.status(200).send(updateResult);
+exports.likePost = async (req, res, next) => {
+  try {
+    const updateResult = await Post.updateOne(
+      { _id: req.params.postId },
+      { $addToSet: { likes: req.user._id }, $inc: { upvotes: 1 } },
+      { new: true }
+    );
+
+    if (updateResult.modifiedCount === 0) {
+      return res.status(400).send('Cannot like a post more than once');
     }
-  );
+    return res.status(200).send(updateResult);
+  } catch (err) {
+    res.status(500);
+    return next(err);
+  }
 };
 
-exports.deleteLike = (req, res, next) => {
-  Post.updateOne(
-    { _id: req.params.postId },
-    { $pull: { likes: req.user._id }, $inc: { upvotes: -1 } },
-    { new: true },
-    (err, updateResult) => {
-      if (err) {
-        res.status(500);
-        return next(err);
-      }
-      return res.status(200).send(updateResult);
-    }
-  );
-};
-
-exports.getLikePost = (req, res, next) => {
-  Post.findOne(
-    { $and: [{ _id: req.params.postId }, { likes: { $in: req.user._id } }] },
-    (err, post) => {
-      if (err) {
-        res.status(500);
-        return next(err);
-      }
-      return res.status(200).send(post);
-    }
-  );
+exports.deleteLike = async (req, res, next) => {
+  try {
+    const updateResult = await Post.updateOne(
+      { _id: req.params.postId },
+      { $pull: { likes: req.user._id }, $inc: { upvotes: -1 } },
+      { new: true }
+    );
+    return res.status(200).send(updateResult);
+  } catch (err) {
+    res.status(500);
+    return next(err);
+  }
 };
 
 exports.createCommentOnPost = async (req, res, next) => {
