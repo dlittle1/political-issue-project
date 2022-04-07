@@ -4,50 +4,92 @@ const User = require('../models/user.js');
 const jwt = require('jsonwebtoken');
 const bigheadsGenerator = require('../utils/bigheads');
 const { getRandomOptions } = bigheadsGenerator;
+const bcrypt = require('bcrypt');
 
 // Signup
-authRouter.post('/signup', (req, res, next) => {
-  User.findOne({ email: req.body.email.toLowerCase() }, (err, user) => {
-    if (err) {
-      res.status(500);
-      return next(err);
-    }
-    if (user) {
+authRouter.post('/signup', async (req, res, next) => {
+  const { username, email, password: plainTextPassword } = req.body;
+  const saltRounds = 10;
+
+  const password = await bcrypt.hash(plainTextPassword, saltRounds);
+
+  const avatar = { ...getRandomOptions() };
+
+  const user = { username, email, password, avatar };
+
+  try {
+    const foundUser = await User.findOne({
+      email: req.body.email.toLowerCase(),
+    });
+    if (foundUser) {
       res.status(403);
       return next(new Error('User already exists with that email address'));
     }
-    req.body.avatar = { ...getRandomOptions() };
 
-    const newUser = new User(req.body);
-    newUser.save((err, savedUser) => {
-      if (err) {
-        res.status(500);
-        return next(err);
-      }
+    const newUser = await User.create(user);
 
-      const token = jwt.sign(savedUser.toObject(), process.env.SECRET);
-      return res.status(201).send({ token, user: savedUser });
-    });
-  });
+    token = jwt.sign(
+      {
+        _id: newUser._id,
+        username: newUser.username,
+        email: newUser.email,
+        type: 'user',
+      },
+      process.env.SECRET,
+      { expiresIn: '24h' }
+    );
+    return res.status(201).send({ token, user: newUser });
+  } catch (err) {
+    res.status(500);
+    return next(err);
+  }
 });
 
-authRouter.post('/login', (req, res, next) => {
-  User.findOne({ email: req.body.email.toLowerCase() }, (err, user) => {
-    if (err) {
-      res.status(500);
-      return next(err);
-    }
+authRouter.post('/login', async (req, res, next) => {
+  try {
+    const user = await User.findOne({ email: req.body.email.toLowerCase() });
     if (!user) {
       res.status(403);
       return next(new Error('Username or Password are incorrect'));
     }
-    if (req.body.password !== user.password) {
-      res.status(403);
-      return next(new Error('Username or Password are incorrect'));
+    if (await bcrypt.compareSync(req.body.password, user.password)) {
+      token = jwt.sign(
+        {
+          _id: user._id,
+          username: user.username,
+          email: user.email,
+          type: 'user',
+        },
+        process.env.SECRET,
+        { expiresIn: '24h' }
+      );
+      return res.status(200).send({ token, user });
     }
-    const token = jwt.sign(user.toObject(), process.env.SECRET);
-    return res.status(200).send({ token, user });
-  });
+    return { status: 'error', error: 'invalid password' };
+  } catch (err) {
+    res.status(500);
+    return next(err);
+  }
+});
+
+authRouter.put('/updatePassword', async (req, res, next) => {
+  const { username, email, newPassword: newPlainTextPassword } = req.body;
+  const saltRounds = 10;
+
+  try {
+    const newPassword = await bcrypt.hash(newPlainTextPassword, saltRounds);
+
+    const updatedPassword = await User.findOneAndUpdate(
+      { email: email },
+      { password: newPassword },
+      { new: true }
+    );
+
+    return res.status(200).send(updatedPassword);
+  } catch (err) {
+    res.status(500);
+    return next(err);
+  }
 });
 
 // authRouter.put('/update', (req, res, next) => {
