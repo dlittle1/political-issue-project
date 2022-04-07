@@ -36,7 +36,9 @@ const LoginSignupForm = () => {
     <form onSubmit={handleSubmit} className='login-signup-form'>
       {onSignupPage ? (
         <p>
-          please sign up using the form below or <Link to='/'>login</Link>
+          please sign up using the form below or <Link to='/'>login</Link>.
+          <br />
+          your password is secure.
         </p>
       ) : (
         <>
