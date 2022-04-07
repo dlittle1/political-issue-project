@@ -3,7 +3,6 @@ import { Outlet } from 'react-router-dom';
 import '../styles/home.css';
 import LeftSidebar from '../components/LeftSidebar';
 import RightSidebar from '../components/RightSidebar';
-import PopularPosts from './PopularPosts';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/pro-solid-svg-icons';
 
@@ -46,7 +45,7 @@ const Home = () => {
           <LeftSidebar handleMenuClick={handleMenuClick} />
         </div>
         <div className='home-posts-container'>
-          {window.location.pathname === '/' ? <PopularPosts /> : <Outlet />}
+          <Outlet />
         </div>
         <div className='home-right-sidebar'>
           <RightSidebar />
