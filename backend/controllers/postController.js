@@ -59,22 +59,12 @@ exports.getOnePost = async (req, res, next) => {
 
 exports.createPost = async (req, res, next) => {
   req.body.createdBy = req.user._id;
-
   try {
     const newPost = new Post(req.body);
-    const savedPost = await newPost.save((err, savedPost) => {
-      Tags.updateOne(
-        {},
-        { $addToSet: { tags: savedPost.tags } },
-        (err, tags) => {
-          if (err) {
-            res.status(500);
-            next(err);
-          }
-        }
-      );
-      return res.status(201).send(savedPost);
-    });
+
+    const savedPost = await newPost.save();
+    Tags.updateOne({}, { $addToSet: { tags: savedPost.tags } });
+    return res.status(200).send(savedPost);
   } catch (err) {
     res.status(500);
     return next(err);
