@@ -6,6 +6,7 @@ exports.getAllPosts = async (req, res, next) => {
   let queryObject = { ...req.query };
   let queryString = JSON.stringify(queryObject);
 
+  console.log(req.query.featureToggle);
   // REGEX queries localhost:9000/api/posts?tags[regex]=funky|feeling|politics
   // title[regex]=(?i)(?=.*post)(?=.*dylan)&createdBy=62462d12767bdc1d76ee6d2e
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { UserContext } from './UserProvider';
 import axios from 'axios';
 
@@ -13,6 +13,20 @@ userRequestAxios.interceptors.request.use((config) => {
 });
 
 export default function RequestProvider(props) {
+  const userContext = useContext(UserContext);
+
+  userRequestAxios.interceptors.response.use(
+    (res) => {
+      if (res.data.errorMessage === 'jwt expired') {
+        return userContext.signout();
+      }
+      return res;
+    },
+    (err) => {
+      console.log(err);
+    }
+  );
+
   // Get all posts
   const getAllPosts = () => {
     userRequestAxios

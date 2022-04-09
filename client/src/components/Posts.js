@@ -30,6 +30,7 @@ const Posts = (props) => {
     setPosts((prevState) => prevState.filter((post) => post._id !== postId));
   };
 
+  console.log(posts);
   return (
     <div>
       {!loading && (
@@ -44,7 +45,7 @@ const Posts = (props) => {
             </h3>
           ) : (
             <>
-              {posts.map((post, index) => (
+              {posts?.map((post, index) => (
                 <Post
                   {...post}
                   index={index}
