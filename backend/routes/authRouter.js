@@ -67,8 +67,9 @@ authRouter.post('/login', async (req, res, next) => {
         process.env.SECRET,
         { expiresIn: '24h' }
       );
-      const userObj = user.toObject();
+      let userObj = user.toObject();
       delete userObj.password;
+
       return res.status(200).send({ token, userObj });
     }
     return { status: 'error', error: 'invalid password' };
