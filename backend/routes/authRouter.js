@@ -38,7 +38,11 @@ authRouter.post('/signup', async (req, res, next) => {
       process.env.SECRET,
       { expiresIn: '24h' }
     );
-    return res.status(201).send({ token, user: newUser });
+
+    const newUserObj = newUser.toObject();
+    delete newUserObj.password;
+
+    return res.status(201).send({ token, user: newUserObj });
   } catch (err) {
     res.status(500);
     return next(err);
@@ -63,7 +67,9 @@ authRouter.post('/login', async (req, res, next) => {
         process.env.SECRET,
         { expiresIn: '24h' }
       );
-      return res.status(200).send({ token, user });
+      const userObj = user.toObject();
+      delete userObj.password;
+      return res.status(200).send({ token, userObj });
     }
     return { status: 'error', error: 'invalid password' };
   } catch (err) {
