@@ -20,6 +20,9 @@ export default function RequestProvider(props) {
       if (res.data.errorMessage === 'jwt expired') {
         return userContext.signout();
       }
+      if (res.data.errorMessage === 'invalid signature') {
+        return userContext.signout();
+      }
       return res;
     },
     (err) => {

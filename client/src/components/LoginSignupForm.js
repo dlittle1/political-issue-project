@@ -32,18 +32,40 @@ const LoginSignupForm = () => {
     }
   };
 
+  const handleGuestLogin = () => {
+    const guestLogin = {
+      email: 'guest@guest.com',
+      password: 'password',
+    };
+    login(guestLogin);
+  };
+
   return (
     <form onSubmit={handleSubmit} className='login-signup-form'>
       {onSignupPage ? (
-        <p>
-          please sign up using the form below or <Link to='/'>login</Link>.
-          <br />
-          your password is secure.
-        </p>
+        <>
+          <p>
+            please sign up using the form below or <Link to='/'>login</Link>.
+            <br />
+            your password is secure.
+          </p>
+          <p
+            style={{ fontWeight: 'bold', color: '#EC7A7A', cursor: 'pointer' }}
+            onClick={handleGuestLogin}
+          >
+            or continue as a guest
+          </p>
+        </>
       ) : (
         <>
           <p>
             please login or <Link to='/signup'>sign up</Link> to continue
+          </p>
+          <p
+            style={{ fontWeight: 'bold', color: '#EC7A7A', cursor: 'pointer' }}
+            onClick={handleGuestLogin}
+          >
+            or continue as a guest
           </p>
           <p style={{ margin: '5px' }}>forgot password?</p>
         </>
@@ -79,6 +101,9 @@ const LoginSignupForm = () => {
       <br />
 
       {onSignupPage ? <button>Sign Up</button> : <button>Login</button>}
+      <button style={{ backgroundColor: '#EC7A7A' }} onClick={handleGuestLogin}>
+        Login as Guest
+      </button>
     </form>
   );
 };
